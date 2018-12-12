@@ -1,0 +1,60 @@
+import docx2txt
+import collections
+import re
+import nltk
+name = input("Welcome to Essay word counter! Write your essay name!(Add .docx or .doc)")
+
+text = docx2txt.process(name)
+        
+def text_word_counter(a):
+    import docx2txt
+    import collections
+    x = a.split()
+    y = collections.Counter(x)
+    return y
+
+def paragraph_list(a):
+    import docx2txt
+    import collections
+    list1 = a.splitlines()
+    list2 = [s.strip("\t") for s in list1]
+    paragraph_list = list(filter(None, list2))
+    return paragraph_list
+
+list_of_paragraphs = paragraph_list(text)
+
+def paragraph_list_numbers(a):
+    for item in a:
+        print(a.index(item),str(item.split()[:5]))
+    return a.index(item),str(item.split()[:5])
+
+def paragraph_word_counter(a):
+    import docx2txt
+    import collections
+    import re
+    x = a.split()
+    y = collections.Counter(x).most_common(10)
+    return y
+choice = input("What will you do with it? Type A for all text word counting, or B for paragraph word counting!")
+counting_words_text = text_word_counter(text)
+if choice is 'A' or choice is 'a':
+    choice2 = input("Do you want all vocabulary counted? Or only the top ten? Type A for all vocabulary, B for top ten.")
+    if choice2 is 'B' or choice2 is 'b':
+        counting_words_text_top = collections.Counter(counting_words_text).most_common(10)
+        print(counting_words_text_top)
+    if choice2 is'A' or choice2 is 'a':
+        print(counting_words_text)    
+
+if choice is 'B' or choice is 'b':
+    paragraph_list_numbers(list_of_paragraphs)
+    choice3 = input("Choose the paragraph you want to count words! Type the index of the paragraph!")
+    print(paragraph_word_counter(list_of_paragraphs[int(choice3)]))
+
+제가 하려는 프로그램은 사용자의 input에 따라 워드에서 영문 에세이를 import하고, 이후 사용자가 A 혹은 B를 input 함에 따라 글 전체에 대한 글자 반복
+검사, 아니면 문단별로 글자 반복 검사를 하는 프로그램입니다. 문단별 검사를 선택할 때는 검사할 수 있는 문단의 목록을 알려주고, 다시 사용자에게 몇번째
+문단인지 선택을 하게 할 수 있습니다.
+
+해야 할 것: 
+            Counter에서 Noun, verb, adjective만 표시되도록 하기
+            헤딩이나 제목, 이름, 페이지수 등 없어지게 하기
+            찾을때만큼은 전부 lowercase로 바꾸기
